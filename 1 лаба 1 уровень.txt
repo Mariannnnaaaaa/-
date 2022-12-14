@@ -1,0 +1,22 @@
+#include <math.h>
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+	double a, b, z1, z2;
+	cout << "Enter a and b"<<endl;
+	cin >> a >> b;
+
+	z1 = ((a - 1) * sqrt(a) - (b - 1) * sqrt(b)) / (sqrt(pow(a, 3) * b) + a * b + pow(a, 2) - a);
+	z2 = (sqrt(a) - sqrt(b)) / a;
+	cout << "z1=" << z1 << "\nz2=" << z2 << endl;
+
+	if (fabs(z1 - z2) < 0.0000001) {
+		cout << "z1=z2" << endl;
+	}
+	else {
+		cout << "Error" << endl;
+	}
+	system("pause");
+}

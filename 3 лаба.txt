@@ -1,0 +1,58 @@
+#include <iostream>
+#include <math.h>
+using namespace std;
+
+double Y(double x)
+{
+    return 1. / 2 * (exp(x) - exp(-x));
+}
+
+double factorial(int N)
+{
+    if (N < 0) 
+        return 0;
+    if (N == 0) 
+        return 1;
+    else 
+        return N * factorial(N - 1);
+}
+
+double input()
+{
+    double input;
+    cin >> input;
+    while (cin.fail() || (cin.peek() != '\n' && cin.peek() != ' '))
+    {
+        cin.clear();
+        cin.ignore(100, '\n');
+        cout << "Нечисловое значение, попробуйте ещё раз" << endl;
+        cin >> input;
+    }
+    return input;
+}
+
+int main()
+{
+    setlocale(LC_ALL, "Russian");
+    double a, b, h, summ;
+    int n = 0;
+    cout << "Введите a, b, h, n" << endl;
+
+    a = input();
+    b = input();
+    h = input();
+    n = input();
+
+    cout << "Y(x)\t S(x)\t |Y(x)-S(x)|" << endl;
+
+    for (a; a <= b; a += h)
+    {
+        summ = 0;
+        for (int k = 0; k <= n; k++)
+        {
+            summ += (pow(a, 2 * k + 1) / factorial(2 * k + 1));
+        }
+        cout << Y(a) << "\t" << summ << "\t" << abs(Y(a) - summ) << endl;
+
+    }
+}

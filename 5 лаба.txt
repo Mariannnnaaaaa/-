@@ -1,0 +1,133 @@
+#include <iostream>
+#include <ctime>
+#include <math.h>
+#include <conio.h>
+using namespace std;
+
+double input()
+{
+    double input;
+    cin >> input;
+    while (cin.fail() || (cin.peek() != '\n' && cin.peek() != ' '))
+    {
+        cin.clear();
+        cin.ignore(100, '\n');
+        cout << "Нечисловое значение, попробуйте ещё раз" << endl;
+        cin >> input;
+    }
+    return input;
+}
+int inputsize()
+{
+    int inputsize;
+    cin >> inputsize;
+    while (cin.fail() || (cin.peek() != '\n' && cin.peek() != ' '))
+    {
+        cin.clear();
+        cin.ignore(100, '\n');
+        cout << "Нечисловое значение и/или вы ввели не целое значение размера массива, попробуйте ещё раз" << endl;
+        cin >> inputsize;
+    }
+    return inputsize;
+}
+
+int main()
+{
+    srand(time(0));
+    setlocale(LC_ALL, "Russian");
+    cout << "Введите желаемое количество строк массива(< 6): ";
+    int ROW = inputsize();
+    if (ROW == 0)
+    {
+        cout << "Нет строк. Ошибка";
+        return 0;
+    }
+    if (ROW < 0)
+    {
+        cout << "Введенное количество строк отрицательно. Ошибка";
+        return 0;
+    }
+    cout << "Введите желаемое количество столбцов массива(< 6): ";
+    int COL = inputsize();
+    if (COL == 0)
+    {
+        cout << "Нет столбцов. Ошибка";
+        return 0;
+    }
+    if (COL < 0)
+    {
+        cout << "Введенное количество столбцов отрицательно. Ошибка";
+        return 0;
+    }
+    double **arr = new double *[ROW];
+    for (int i = 0; i < ROW; i++)
+    {
+        arr[i] = new double[COL];
+    }
+        
+        cout << "Нажмите 1, если желаете ввести элементы сами, или нажмите любую клавишу для автозаполенения массива числами [-50;50]" << endl;
+        if (_getch() == '1')
+        {
+            cout << "Введите элементы массива" << endl;
+            for (int i = 0; i < ROW; i++)
+            {
+                for (int j = 0; j < COL; j++)
+                {
+                    arr[i][j] = input();
+                }
+            }
+            for (int i = 0; i < ROW; i++)
+            {
+                for (int j = 0; j < COL; j++)
+                {
+                    cout << arr[i][j] << "\t";
+                }
+                cout << endl;
+            }
+            cout << "- Ваш массив" << endl;
+        }
+        else
+        {
+            for (int i = 0; i < ROW; i++)
+            {
+                for (int j = 0; j < COL; j++)
+                {
+                    arr[i][j] = rand() % 101 + (-50);
+                    cout << arr[i][j] << "\t";
+                }
+                cout << endl;
+            }
+            cout << "\n";
+        }
+        int max = 0, min = 0,imin=0,imax=0;
+        for (int i = 0; i <ROW; i++)
+        {
+            for (int j = 0; j < COL; j++)
+            {
+                if (min > arr[i][j])
+                {
+                    min = arr[i][j];
+                    imin = i;
+                }
+                if (max < arr[i][j])
+                {
+                    max = arr[i][j];
+                    imax = i;
+                }
+
+            }
+        }
+        double *temp = arr[imin];
+        arr[imin] = arr[imax];
+        arr[imax] = temp;
+        cout << "\nТрансформированная матрица:\n\n";
+        for (int i = 0; i < ROW; i++)
+        {
+            for (int j = 0; j < COL; j++)
+            {
+                cout << arr[i][j] << "\t";
+            }
+            cout << "\n";
+        }
+        delete[]arr;
+}

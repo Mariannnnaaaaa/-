@@ -1,0 +1,25 @@
+#include <math.h>
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	double a, z1, z2,x,y;
+	cout << "Enter a" << endl;
+	
+	if (cin>>a) {
+		
+		x = sin(a);
+		y = cos(a);
+		z1 = 1 - 1./ 4 * pow(2 * x * y, 2) + 2 * pow(y, 2) - 1;
+		z2 = pow(y, 2) + pow(y, 4);
+		cout << "z1=" << z1 << "\nz2=" << z2 << endl;
+	}
+	else {
+		cout << "Error" << endl;
+		return 0;
+	}
+	
+	system("pause");
+}
